@@ -9,27 +9,27 @@ class Cours
 private:
     string coursName;
     int coursNum;
-    Personnel* teachers;
+    Personnel *teachers;
     string NEtude;
     string dep;
 
 public:
     Cours();
-    Cours(string CName, int CNum, Personnel* t, string niveau);
+    Cours(string CName, int CNum, Personnel *t, string niveau);
     ~Cours();
-    //getters and setters
-    void setCName(string name){coursName = name;}
-    void setCNum(int num){coursNum = num;}
-    void setTeacher(Personnel* t){teachers = t;}
-    void setNiveau(string niveau){NEtude = niveau;}
-    string getCoursName(){return coursName;}
-    int getCoursNum(){return coursNum;}
-    Personnel* getTeacher(){return teachers;}
-    string getNiveau(){return NEtude;}
+    // getters and setters
+    void setCName(string name) { coursName = name; }
+    void setCNum(int num) { coursNum = num; }
+    void setTeacher(Personnel *t) { teachers = t; }
+    void setNiveau(string niveau) { NEtude = niveau; }
+    string getCoursName() { return coursName; }
+    int getCoursNum() { return coursNum; }
+    Personnel *getTeacher() { return teachers; }
+    string getNiveau() { return NEtude; }
     // affichage
     void afficher();
     // attribution d'un enseignant
-    bool givingTeacher(Personnel* teachers);
+    bool givingTeacher(Personnel *teachers);
 };
 
 /* ------------------------------------- ETUDIANT ------------------------------------------------------- */
@@ -87,19 +87,20 @@ public:
 };
 /* ------------------------------------- INSCRIPTIONS ------------------------------------------------------- */
 
-class Inscription {
+class Inscription
+{
 private:
-    vector<Cours*> courses;
-    vector<vector<Etudiant*>> studentsInCourses;
-    vector<bool> validated; 
+    vector<Cours *> courses;
+    vector<vector<Etudiant *>> studentsInCourses;
+    vector<bool> validated;
 
 public:
     Inscription();
     ~Inscription();
     // Methods
-    void inscrireEtudiant(Etudiant* e, Cours* c);
-    void validerInscription(Cours* c);
-    void declinerInscription(Cours* c);
+    void inscrireEtudiant(Etudiant *e, Cours *c);
+    void validerInscription(Cours *c);
+    void declinerInscription(Cours *c);
     void afficherInscriptions() const;
 };
 
@@ -110,17 +111,43 @@ class Notes
 private:
     struct grade
     {
-        Etudiant* student;
-        Cours* course;
+        Etudiant *student;
+        Cours *course;
         double grade;
     };
 
     vector<grade> Listnotes;
-    
+
 public:
     Notes(/* args */);
     ~Notes();
-    void addGrade(Etudiant* student, Cours* course, double grade);
-    double getGrade(Etudiant* student, Cours* course);
-    void StudentNotes(Etudiant* student);
+    void addGrade(Etudiant *student, Cours *course, double grade);
+    double getGrade(Etudiant *student, Cours *course);
+    void StudentNotes(Etudiant *student);
 };
+
+class Abscence
+{
+    struct abscent
+    {
+        Etudiant *student;
+        Cours *course;
+        string date;
+    };
+
+private:
+    vector<abscent> ListAbscence;
+
+public:
+    Abscence(/* args */);
+    ~Abscence();
+    void addAbscence(Etudiant *student, Cours *course, string date);
+};
+
+Abscence::Abscence(/* args */)
+{
+}
+
+Abscence::~Abscence()
+{
+}

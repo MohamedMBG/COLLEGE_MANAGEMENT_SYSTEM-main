@@ -29,3 +29,5 @@ double Notes::getGrade(Etudiant* student, Cours* course){
     cout << "l'etudiant n'a pas de note pour ce cours!" << endl;
     return -1;
 }
+
+/* --------------- still i didn't do the displaying part -------------------------- */
