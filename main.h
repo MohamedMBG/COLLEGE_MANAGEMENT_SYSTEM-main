@@ -121,6 +121,6 @@ public:
     Notes(/* args */);
     ~Notes();
     void addGrade(Etudiant* student, Cours* course, double grade);
-    void getGrade(Etudiant* student, Cours* course);
+    double getGrade(Etudiant* student, Cours* course);
     void StudentNotes(Etudiant* student);
 };
