@@ -17,6 +17,15 @@ public:
     Cours();
     Cours(string CName, int CNum, Personnel* t, string niveau);
     ~Cours();
+    //getters and setters
+    void setCName(string name){coursName = name;}
+    void setCNum(int num){coursNum = num;}
+    void setTeacher(Personnel* t){teachers = t;}
+    void setNiveau(string niveau){NEtude = niveau;}
+    string getCoursName(){return coursName;}
+    int getCoursNum(){return coursNum;}
+    Personnel* getTeacher(){return teachers;}
+    string getNiveau(){return NEtude;}
     // affichage
     void afficher();
     // attribution d'un enseignant
@@ -50,28 +59,6 @@ public:
     string getMajor() { return filiere; }
 };
 
-/* ------------------------------------- NOTE ------------------------------------------------------- */
-class Note
-{
-private:
-    double note;
-    int courseId;
-    int studentid;
-
-public:
-    Note();
-    Note(int Cours, int Student, double grade);
-    ~Note();
-    // declaration des setters
-    void setNote(double n) { note = n; }
-    void setCourseID(int idC) { courseId = idC; }
-    void setStudentID(int idS) { studentid = idS; }
-    // declaration des getters
-    double getGrade() { return note; }
-    int getStudentID() { return studentid; }
-    int getcourseID() { return courseId; }
-};
-
 /* ------------------------------------- PERSONNEL ------------------------------------------------------- */
 class Personnel
 {
@@ -98,21 +85,42 @@ public:
     char getType() { return type; }
     string getDep() { return departement; }
 };
+/* ------------------------------------- INSCRIPTIONS ------------------------------------------------------- */
 
-/* ------------------------------------- INSCRIPTION ------------------------------------------------------- */
-class Inscription
-{
+class Inscription {
 private:
-    Etudiant* student;
-    Personnel* teacher;
-    Cours* cours;
-    bool validation;
+    vector<Cours*> courses;
+    vector<vector<Etudiant*>> studentsInCourses;
+    vector<bool> validated; 
 
 public:
     Inscription();
-    Inscription(Etudiant* e, Personnel* p, Cours* c, bool v);
     ~Inscription();
     // Methods
-    void validerInscription();
-    void afficherDetails() const;
+    void inscrireEtudiant(Etudiant* e, Cours* c);
+    void validerInscription(Cours* c);
+    void declinerInscription(Cours* c);
+    void afficherInscriptions() const;
+};
+
+/* ------------------------------------- NOTES ------------------------------------------------------- */
+
+class Notes
+{
+private:
+    struct grade
+    {
+        Etudiant* student;
+        Cours* course;
+        double grade;
+    };
+
+    vector<grade> Listnotes;
+    
+public:
+    Notes(/* args */);
+    ~Notes();
+    void addGrade(Etudiant* student, Cours* course, double grade);
+    void getGrade(Etudiant* student, Cours* course);
+    void StudentNotes(Etudiant* student);
 };
