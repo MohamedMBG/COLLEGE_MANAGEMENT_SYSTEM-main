@@ -126,6 +126,8 @@ public:
     void StudentNotes(Etudiant *student);
 };
 
+/* ------------------------------------- ABSCENCES ------------------------------------------------------- */
+
 class Abscence
 {
     struct abscent
@@ -143,11 +145,3 @@ public:
     ~Abscence();
     void addAbscence(Etudiant *student, Cours *course, string date);
 };
-
-Abscence::Abscence(/* args */)
-{
-}
-
-Abscence::~Abscence()
-{
-}
