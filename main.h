@@ -40,10 +40,12 @@ private:
     string nom;
     string prenom;
     string filiere;
+    string fBac;
+    double noteBac;
 
 public:
     Etudiant(/* args */);
-    Etudiant(int m, string n, string pn, string major);
+    Etudiant(int m, string n, string pn, string major , string bacM , double noteB);
     ~Etudiant();
     void afficher();
     bool rechercher(vector<Etudiant> &etudiants, int matricule);
@@ -52,11 +54,15 @@ public:
     void setNom(string n) { nom = n; }
     void setPrenom(string pn) { prenom = pn; }
     void setMajor(string major) { filiere = major; }
+    void setMajorB(string bac) { fBac = bac; }
+    void setMajor(double noteB) { noteBac = noteB; }
     // definition des setters
     int getMatricule() { return matricule; }
     string getNom() { return nom; }
     string getPrenom() { return prenom; }
     string getMajor() { return filiere; }
+    string getBacM() { return fBac; }
+    double getNoteBac() { return noteBac; }
 };
 
 /* ------------------------------------- PERSONNEL ------------------------------------------------------- */
@@ -144,4 +150,5 @@ public:
     Abscence(/* args */);
     ~Abscence();
     void addAbscence(Etudiant *student, Cours *course, string date);
+    void displayAbscence(int CodeStd);
 };

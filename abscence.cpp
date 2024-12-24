@@ -1,4 +1,6 @@
-#include "main.h"
+#include "etudiant.cpp"
+#include "cours.cpp"
+
 #include<iostream>
 #include<vector>
 #include<string>
