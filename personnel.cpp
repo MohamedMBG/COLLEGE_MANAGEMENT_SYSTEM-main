@@ -26,7 +26,7 @@ Personnel::~Personnel(){
 
 void Personnel::search(vector<Personnel>& persons, int id){
     bool exists = false;
-    int position = NULL;
+    int position = -1;
     for (int i = 0; i < persons.size(); i++)
     {
         if (persons[i].num_employe == id)

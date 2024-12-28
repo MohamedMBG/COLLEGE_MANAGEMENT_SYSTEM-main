@@ -12,21 +12,20 @@ Notes::Notes(/* args */){
 Notes::~Notes(){
 }
 
-void Notes::addGrade(Etudiant* student, Cours* course, double grade){
-    //on va ajouter ces informations a la listes qu'on a deja declare
-    Listnotes.push_back({student, course, grade});
+void Notes::addGrade(Etudiant* student, Cours* course, double grade) {
+    students.push_back(student);
+    courses.push_back(course);
+    grades.push_back(grade);
 }
 
-double Notes::getGrade(Etudiant* student, Cours* course){
-    for (int i = 0; i < Listnotes.size(); i++)
-    {
-        if (Listnotes[i].student == student && Listnotes[i].course == course)
-        {
-            cout << "l'etudiant: " << student->getNom() << " a eu " << Listnotes[i].grade << " au cours de: " << course->getCoursName() << endl;
-            return Listnotes[i].grade;
+double Notes::getGrade(Etudiant* student, Cours* course) {
+    for (size_t i = 0; i < students.size(); i++) {
+        if (students[i] == student && courses[i] == course) {
+            cout << "L'etudiant: " << student->getNom() << " a eu " << grades[i] << " au cours de: " << course->getCoursName() << endl;
+            return grades[i];
         }
     }
-    cout << "l'etudiant n'a pas de note pour ce cours!" << endl;
+    cout << "L'etudiant n'a pas de note pour ce cours!" << endl;
     return -1;
 }
 

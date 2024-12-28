@@ -24,6 +24,11 @@ Etudiant::Etudiant(int m, string n, string pn, string major, string majorB, doub
     setNoteb(noteB);
 }
 
+
+Etudiant::~Etudiant() {
+}
+
+
 void Etudiant::afficher(){
     cout << "l'etudiant de matricule: " << matricule <<
     " sont nom complet est : " << nom << prenom <<

@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
+class Personnel;
 
 /* ------------------------------------- COURS ------------------------------------------------------- */
 class Cours
@@ -45,7 +47,7 @@ private:
 
 public:
     Etudiant(/* args */);
-    Etudiant(int m, string n, string pn, string major , string bacM , double noteB);
+    Etudiant(int m, string n, string pn, string major, string bacM, double noteB);
     ~Etudiant();
     void afficher();
     bool rechercher(vector<Etudiant> &etudiants, int matricule);
@@ -55,7 +57,7 @@ public:
     void setPrenom(string pn) { prenom = pn; }
     void setMajor(string major) { filiere = major; }
     void setMajorB(string bac) { fBac = bac; }
-    void setMajor(double noteB) { noteBac = noteB; }
+    void setNoteb(double noteB) { noteBac = noteB; }
     // definition des setters
     int getMatricule() { return matricule; }
     string getNom() { return nom; }
@@ -115,14 +117,9 @@ public:
 class Notes
 {
 private:
-    struct grade
-    {
-        Etudiant *student;
-        Cours *course;
-        double grade;
-    };
-
-    vector<grade> Listnotes;
+    vector<Etudiant*> students;
+    vector<Cours*> courses;
+    vector<double> grades;
 
 public:
     Notes(/* args */);
@@ -136,15 +133,11 @@ public:
 
 class Abscence
 {
-    struct abscent
-    {
-        Etudiant *student;
-        Cours *course;
-        string date;
-    };
 
 private:
-    vector<abscent> ListAbscence;
+    Etudiant *student;
+    Cours *course;
+    string date;
 
 public:
     Abscence(/* args */);
