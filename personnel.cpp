@@ -24,6 +24,19 @@ Personnel::~Personnel(){
     cout << "l'objet a ete detruit avec succes!";
 }
 
+void Personnel::modifyPersonnel(){
+    cout << "Modifier les information du personnel " << endl;
+
+    cout << "Entrez le nouveau nom du personnel: ";
+    cin.ignore();
+    getline(cin, name);
+
+    cout << "Entrez le nouveau departement du personnel: ";
+    getline(cin, departement);
+
+    cout << "Informations du personnel modifiees avec succes!" << endl;
+}
+
 void Personnel::search(vector<Personnel>& persons, int id){
     bool exists = false;
     int position = -1;

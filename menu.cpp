@@ -5,12 +5,15 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
     vector<Etudiant> etudiants;
     vector<Cours> courses;
     Inscription inscription;
+    vector<Personnel> personnels;
 
-    while (true) {
+    while (true)
+    {
         int choice;
         cout << "Veuillez choisir une option:" << endl;
         cout << "1. Administrateur" << endl;
@@ -20,26 +23,34 @@ int main() {
         cout << "Votre choix: ";
         cin >> choice;
 
-        if (choice == 4) {
+        if (choice == 4)
+        {
             break;
         }
 
-        switch (choice) {
-        case 1: {
+        switch (choice)
+        {
+        case 1:
+        {
             int choiceAdmin;
-            cout << endl << "Vous avez choisi le role d'administrateur." << endl;
-            cout << "Veuillez choisir une option:" << endl;
+            cout << endl
+                 << "Vous avez choisi le role d'administrateur." << endl;
+            cout << "Veuillez choisir une option: " << endl;
             cout << "1. Ajouter un cours" << endl;
             cout << "2. Ajouter un administrateur" << endl;
+            cout << "3. Modifier infos etudiant" << endl;
             cout << "0. Retour au menu principal" << endl;
             cin >> choiceAdmin;
 
-            if (choiceAdmin == 0) {
+            if (choiceAdmin == 0)
+            {
                 break;
             }
 
-            switch (choiceAdmin) {
-            case 1: {
+            switch (choiceAdmin)
+            {
+            case 1:
+            {
                 string coursName, niveauEtude, dep;
                 int coursNum;
                 Personnel *teacher = new Personnel();
@@ -65,7 +76,8 @@ int main() {
                 newCours.afficher();
                 break;
             }
-            case 2: {
+            case 2:
+            {
                 cout << "Ajouter un administrateur: " << endl;
 
                 string name, dep;
@@ -84,26 +96,53 @@ int main() {
                 cout << "Administrateur ajoute avec succes!" << endl;
                 break;
             }
+            case 3:
+            {
+                int c;
+                for (int i = 0; i < etudiants.size(); i++)
+                {
+                    etudiants[i].afficher();
+                }
+
+                cout << endl
+                     << "veuillez entrer le numero de l'etudiant que vous voulez mofifier : ";
+                cin >> c;
+
+                for (int i = 0; i < etudiants.size(); i++)
+                {
+                    if (etudiants[i].getMatricule() == c)
+                    {
+                        etudiants[i].modifyStudent();
+                        break;
+                    }
+                }
+            }
+
             default:
                 cout << "Choix invalide. Veuillez reessayer." << endl;
                 break;
             }
             break;
         }
-        case 2: {
-            cout << endl << "Vous avez choisi le role d'etudiant." << endl;
+        case 2:
+        {
+            cout << endl
+                 << "Vous avez choisi le role d'etudiant." << endl;
             int choiceEtudiant;
             cout << "1. Ajouter un etudiant" << endl;
             cout << "2. S'inscrire a un cours" << endl;
             cout << "0. Retour au menu principal" << endl;
             cin >> choiceEtudiant;
 
-            if (choiceEtudiant == 0) {
+            if (choiceEtudiant == 0)
+            {
                 break;
             }
 
-            switch (choiceEtudiant) {
-            case 1: {
+            switch (choiceEtudiant)
+            {
+            case 1:
+            {
                 string nom, prenom, major, majorB;
                 double noteBac;
                 int matricule;
@@ -132,11 +171,13 @@ int main() {
                 cout << "Etudiant ajoute avec succes!" << endl;
                 break;
             }
-            case 2: {
+            case 2:
+            {
 
-                //afficher les cours disponibles
+                // affichage des cours disponibles
                 cout << "Liste des cours disponibles:" << endl;
-                for (size_t i = 0; i < courses.size(); ++i) {
+                for (size_t i = 0; i < courses.size(); ++i)
+                {
                     courses[i].afficher();
                 }
 
@@ -147,28 +188,35 @@ int main() {
                 cout << "Entrez le numero du cours: ";
                 cin >> coursNum;
 
-                //chercher le cours et l'etudiant 
-                Etudiant* etudiant = nullptr;
-                Cours* cours = nullptr;
+                // chercher le cours et l'etudiant
+                Etudiant *etudiant = nullptr;
+                Cours *cours = nullptr;
 
-                for (auto& e : etudiants) {
-                    if (e.getMatricule() == matricule) {
+                for (auto &e : etudiants)
+                {
+                    if (e.getMatricule() == matricule)
+                    {
                         etudiant = &e;
                         break;
                     }
                 }
 
-                for (auto& c : courses) {
-                    if (c.getCoursNum() == coursNum) {
+                for (auto &c : courses)
+                {
+                    if (c.getCoursNum() == coursNum)
+                    {
                         cours = &c;
                         break;
                     }
                 }
 
-                if (etudiant && cours) {
+                if (etudiant && cours)
+                {
                     inscription.inscrireEtudiant(etudiant, cours);
                     cout << "Etudiant inscrit au cours avec succes!" << endl;
-                } else {
+                }
+                else
+                {
                     cout << "Etudiant ou cours non trouve." << endl;
                 }
                 break;
@@ -181,6 +229,45 @@ int main() {
         }
         case 3:
             cout << endl << "Vous avez choisi le role d'enseignant." << endl;
+            int choixEseignant;
+            cout << "1. Ajouter un enseignant: " << endl;
+            cout << "2. controller les inscriptions: " << endl;
+            cout << "3. Ajouter les notes des etudiants: " << endl;
+            cout << "0. Retour au menu principal" << endl;
+            cin >> choixEseignant;
+
+            if (choixEseignant == 0)
+            {
+                break;
+            }
+            switch (choixEseignant)
+            {
+            case 1:
+            {
+                string nom, dep;
+                int num;
+                char type = 'e';
+
+                cout << "Entrez le numero de l'enseignant: ";
+                cin >> num;
+                cout << "Entrez le nom de l'enseignant: ";
+                cin.ignore();
+                getline(cin, nom);
+                cout << "Entrez le departement de l'enseignant: ";
+                cin.ignore();
+                getline(cin, dep);
+
+                Personnel newEnseignant(num, nom, type, dep);
+                personnels.push_back(newEnseignant);
+                cout << "Enseignant ajoute avec succes!" << endl;
+
+                break;
+            }
+
+            default:
+                break;
+            }
+
             break;
         default:
             cout << endl << "Choix invalide. Veuillez reessayer." << endl;

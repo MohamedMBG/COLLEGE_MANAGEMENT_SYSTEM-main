@@ -50,6 +50,7 @@ public:
     Etudiant(int m, string n, string pn, string major, string bacM, double noteB);
     ~Etudiant();
     void afficher();
+    void modifyStudent();
     bool rechercher(vector<Etudiant> &etudiants, int matricule);
     // definition des getters
     void setMatricule(int id) { matricule = id; }
@@ -82,6 +83,7 @@ public:
     ~Personnel();
     void lister();
     void search(vector<Personnel> &persons, int id);
+    void modifyPersonnel();
     // declaration des setters
     void setNum(int n) { num_employe = n; }
     void setName(string nom) { name = nom; }
