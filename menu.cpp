@@ -53,67 +53,26 @@ int main()
                 {              
                     case 1:
                     {
-                        string coursName, niveauEtude, dep;
-                        int coursNum;
+                        string name, dep;
+                        int num, code;
+                        char type = 'e';
 
                         cout << "Entrez le nom du cours: ";
                         cin.ignore();
-                        getline(cin, coursName);
-
+                        getline(cin, name);
                         cout << "Entrez le numero du cours: ";
-                        cin >> coursNum;
-
-                        cout << "Entrez le niveau d'etude: ";
+                        cin >> num;
+                        cout << "Entrez le departement du cours: ";
                         cin.ignore();
-                        getline(cin, niveauEtude);
+                        getline(cin, dep);
+                        cout << "Entrez le numero du prof: ";
+                        cin >> code;
 
-                        // dans cette partie on va essayer de trouver l'enseignant qu'on va attribuer a un cours , si il n'existe pas on va le creer
-                        int NumoeroE;
-                        cout << endl << "Entrez le numero de l'enseignant: ";
-                        cin >> NumoeroE;
-
-                        // la partie qu'on va parcourir le vecteur des personnels pour trouver l'enseignant
-                        Personnel *teacher = nullptr;
-                        for (auto &p : personnels)
-                        {
-                            if (p.getNum() == NumoeroE && p.getType() == 'e')
-                            {
-                                teacher = &p;
-                                break;
-                            }
-                        }
-
-                        // si le pointeur "teahcer" est null on va creer un enseignant
-                        if (!teacher)
-                        {
-                            cout << "Enseignant non trouve. Veuillez entrer les informations de l'enseignant: " << endl;
-                            int numEnseignant;
-                            string name, dep;
-                            char typeEnseignant = 'e';
-
-                            cout << endl
-                                << "Entrez le numero de l'enseignant: ";
-                            cin >> numEnseignant;
-                            cout << endl
-                                << "Entrez le nom de l'enseignant: ";
-                            cin.ignore();
-                            getline(cin, name);
-                            cout << "Entrez le departement de l'enseignant: ";
-                            cin.ignore();
-                            getline(cin, dep);
-
-                            Personnel newEnseignant(numEnseignant, name, typeEnseignant, dep);
-                            personnels.push_back(newEnseignant);
-                            teacher = &newEnseignant;
-                        }
-
-                        // on va mettre le deparetement du cours le meme que le professeur
-                        dep = teacher->getDep();
-
-                        Cours newCours(coursName, coursNum, teacher, niveauEtude);
+                        Cours newCours(name, num, code, dep);
+                        Cours p = Cours(name, num, code, dep);
                         courses.push_back(newCours);
                         cout << "Cours ajoute avec succes!" << endl;
-                        newCours.afficher();
+                        p.afficher();
                         break;
                     }
                     case 2:
@@ -160,64 +119,59 @@ int main()
                     case 4:
                     {
                         int choiceAbscence;
-                        cout << "Veuillez choisir une option: " << endl;
-                        cout << "1. Ajouter une abscence a un etudiant" << endl;
-                        cout << "2. Afficher les abscences d'un cours" << endl;
-                        cout << "3. Afficher les abscences d'un etudiant" << endl;
-                        cout << "4. Afficher les abscences d'un etudiant dans un cours" << endl;
-                        cout << "0. Retour au menu principal" << endl;
-                        cin >> choiceAbscence;
+                cout << "Veuillez choisir une option: " << endl;
+                cout << "1. Ajouter une abscence a un etudiant" << endl;
+                cout << "2. Afficher les abscences d'un cours" << endl;
+                cout << "3. Afficher les abscences d'un etudiant" << endl;
+                cout << "4. Afficher les abscences d'un etudiant dans un cours" << endl;
+                cout << "0. Retour au menu principal" << endl;
+                cin >> choiceAbscence;
 
-                        if (choiceAbscence == 0) {
-                            break;
-                        }
-
-                        switch (choiceAbscence) {
-                        case 1: {
-                            int codestd, codeCours;
-                            string date;
-                            cout << "Entrez le numero de l'etudiant: ";
-                            cin >> codestd;
-                            cout << "Entrez le numero du cours: ";
-                            cin >> codeCours;
-                            cout << "Entrez la date de l'absence (format: YYYY-MM-DD): ";
-                            cin.ignore();
-                            getline(cin, date);
-
-                            abscence.addAbscence(codestd, codeCours, date);
-                            break;
-                        }
-                        case 2: {
-                            int codeCours;
-                            cout << "Entrez le numero du cours: ";
-                            cin >> codeCours;
-
-                            abscence.displayAbscencesForCourse(codeCours);
-                            break;
-                        }
-                        case 3: {
-                            int codestd;
-                            cout << "Entrez le numero de l'etudiant: ";
-                            cin >> codestd;
-
-                            abscence.displayAbscences(codestd);
-                            break;
-                        }
-                        case 4: {
-                            int codestd, codeCours;
-                            cout << "Entrez le numero de l'etudiant: ";
-                            cin >> codestd;
-                            cout << "Entrez le numero du cours: ";
-                            cin >> codeCours;
-
-                            abscence.SCAbscences(codestd, codeCours);
-                            break;
-                }
-                default:
-                    cout << "Choix invalide. Veuillez reessayer." << endl;
+                if (choiceAbscence == 0) {
                     break;
                 }
-                break;
+
+                switch (choiceAbscence) {
+                case 1: {
+                    int codestd, codeCours;
+                    string date;
+                    cout << "Entrez le numero de l'etudiant: ";
+                    cin >> codestd;
+                    cout << "Entrez le numero du cours: ";
+                    cin >> codeCours;
+                    cout << "Entrez la date de l'absence (format: YYYY-MM-DD): ";
+                    cin.ignore();
+                    getline(cin, date);
+
+                    abscence.addAbscence(codestd, codeCours, date);
+                    break;
+                }
+                case 2: {
+                    int codeCours;
+                    cout << "Entrez le numero du cours: ";
+                    cin >> codeCours;
+
+                    abscence.displayAbscencesForCourse(codeCours);
+                    break;
+                }
+                case 3: {
+                    int codestd;
+                    cout << "Entrez le numero de l'etudiant: ";
+                    cin >> codestd;
+
+                    abscence.displayAbscences(codestd);
+                    break;
+                }
+                case 4: {
+                    int codestd, codeCours;
+                    cout << "Entrez le numero de l'etudiant: ";
+                    cin >> codestd;
+                    cout << "Entrez le numero du cours: ";
+                    cin >> codeCours;
+
+                    abscence.SCAbscences(codestd, codeCours);
+                    break;
+                }
                     }
 
                     default:
@@ -225,6 +179,7 @@ int main()
                         break;
                 }
                 break;
+                }
             }
             case 2:
             {

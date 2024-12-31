@@ -15,35 +15,34 @@ void Abscence::addAbscence(int codestd, int codeCours, string date)
     Cours *course = nullptr;
 
     // on doit verifier si l'etudiant et le cours existent
-    for (auto &etudiant : students)
+    for (int i = 0; i < students.size(); i++)
     {
-        if (etudiant->getMatricule() == codestd)
+        if (students[i]->getMatricule() == codestd)
         {
-            student = etudiant;
+            student = students[i];
             break;
         }
     }
+    
 
-    for (auto &cours : courses)
+    for (int i = 0; i < courses.size(); i++)
     {
-        if (cours->getCoursNum() == codeCours)
+        if (courses[i]->getCoursNum() == codeCours)
         {
-            course = cours;
+            course = courses[i];
             break;
         }
     }
 
     // si l'etudiant et le cours existent on va ajouter l'absence
-    if (student && course)
+    if (student != nullptr && course != nullptr)
     {
         students.push_back(student);
         courses.push_back(course);
         dates.push_back(date);
         cout << "abscence ajoutee pour " << student->getNom() << " dans le cours " << course->getCoursName() << " le " << date << endl;
-    }
-    else
-    {
-        cout << "L'etudiant et non trouve" << endl;
+    }else{
+        cout << "L'etudiant ou le cours n'existe pas!" << endl;
     }
 }
 
@@ -100,4 +99,3 @@ void Abscence::SCAbscences(int studentId, int courseId)
         cout << "Aucune abscence de l'etudiant de matricule: " << studentId << "Dans le cours numero: " << courseId << endl;
     }
 }
-

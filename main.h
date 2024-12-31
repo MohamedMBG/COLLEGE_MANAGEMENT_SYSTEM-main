@@ -19,7 +19,7 @@ private:
 
 public:
     Cours();
-    Cours(string CName, int CNum, Personnel *t, string niveau);
+    Cours(string CName, int CNum, int t, string niveau);
     ~Cours();
     // getters and setters
     void setCName(string name) { coursName = name; }
@@ -35,7 +35,7 @@ public:
     // affichage
     void afficher();
     // attribution d'un enseignant
-    bool givingTeacher(Personnel *teachers);
+    bool givingTeacher(int t);
 };
 
 /* ------------------------------------- ETUDIANT ------------------------------------------------------- */

@@ -17,7 +17,7 @@ Cours::Cours()
     students = vector<Etudiant *>();
 }
 
-Cours::Cours(string CName, int Cnum, Personnel *t, string levelEtude)
+Cours::Cours(string CName, int Cnum, int t, string levelEtude)
 {
     if (givingTeacher(t) == true)
     {
@@ -28,31 +28,36 @@ Cours::Cours(string CName, int Cnum, Personnel *t, string levelEtude)
     }
 }
 
-Cours::~Cours()
-{
-    cout << "l'objet a ete detruit avec succes!";
-}
 
-bool Cours::givingTeacher(Personnel *p)
+bool Cours::givingTeacher(int p)
 {
     bool exists;
+    Personnel* t;
     vector<Personnel> teachers;
     for (int i = 0; i < teachers.size(); i++)
     {
-        if (p->getNum() == teachers[i].getNum() && tolower(p->getType()) == 'e')
+        if (teachers[i].getNum() == p && tolower(teachers[i].getType()) == 'e')
         {
-            setTeacher(&teachers[i]);
+            t = &teachers[i];
+            setTeacher(t);
             dep = teachers[i].getDep();
             return true;
         }
+        
     }
     return false;
 }
 
 void Cours::afficher()
 {
-    cout << "Nom du cours: " << coursName << endl
-         << "Numero du cours: " << coursNum << endl
+    cout << "Nom du cours: " << getCoursName() << endl
+         << "Numero du cours: " << getCoursNum() << endl
          << "Departement: " << dep << endl
-         << "Niveau d'etude: " << NEtude << endl;
+         << "Niveau d'etude: " << getNiveau() << endl;
+}
+
+
+Cours::~Cours()
+{
+    cout << "l'objet a ete detruit avec succes!";
 }
