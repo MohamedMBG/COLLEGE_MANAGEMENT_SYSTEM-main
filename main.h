@@ -4,6 +4,7 @@
 
 using namespace std;
 class Personnel;
+class Etudiant;
 
 /* ------------------------------------- COURS ------------------------------------------------------- */
 class Cours
@@ -14,6 +15,7 @@ private:
     Personnel *teachers;
     string NEtude;
     string dep;
+    vector<Etudiant *> students;
 
 public:
     Cours();
@@ -28,6 +30,8 @@ public:
     int getCoursNum() { return coursNum; }
     Personnel *getTeacher() { return teachers; }
     string getNiveau() { return NEtude; }
+    vector<Etudiant *> &getStudents() { return students; } 
+
     // affichage
     void afficher();
     // attribution d'un enseignant
@@ -101,17 +105,15 @@ class Inscription
 {
 private:
     vector<Cours *> courses;
-    vector<vector<Etudiant *>> studentsInCourses;
-    vector<bool> validated;
+    vector<Etudiant *> students;
 
 public:
     Inscription();
     ~Inscription();
     // Methods
-    void inscrireEtudiant(Etudiant *e, Cours *c);
-    void validerInscription(Cours *c);
-    void declinerInscription(Cours *c);
-    void afficherInscriptions() const;
+    void inscrireEtudiant(int codeE, int codeC);
+    void declinerInscription(int codeE, int codeC);
+    void afficherInscriptions();
 };
 
 /* ------------------------------------- NOTES ------------------------------------------------------- */
@@ -119,16 +121,17 @@ public:
 class Notes
 {
 private:
-    vector<Etudiant*> students;
-    vector<Cours*> courses;
+    vector<Etudiant *> students;
+    vector<Cours *> courses;
     vector<double> grades;
 
 public:
-    Notes(/* args */);
+    Notes();
     ~Notes();
     void addGrade(Etudiant *student, Cours *course, double grade);
     double getGrade(Etudiant *student, Cours *course);
     void StudentNotes(Etudiant *student);
+    void modifyGrade(Etudiant *student, Cours *course, double grade);
 };
 
 /* ------------------------------------- ABSCENCES ------------------------------------------------------- */
@@ -137,13 +140,15 @@ class Abscence
 {
 
 private:
-    Etudiant *student;
-    Cours *course;
-    string date;
+    vector<Etudiant *> students;
+    vector<Cours *> courses;
+    vector<string> dates;
 
 public:
     Abscence(/* args */);
     ~Abscence();
-    void addAbscence(Etudiant *student, Cours *course, string date);
-    void displayAbscence(int CodeStd);
+    void addAbscence(int codestd , int codeCours , string date);
+    void displayAbscences(int CodeStd);
+    void displayAbscencesForCourse(int courseId);
+    void SCAbscences(int CodeStd , int courseId);
 };

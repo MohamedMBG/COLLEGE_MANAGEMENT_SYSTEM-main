@@ -7,24 +7,25 @@
 
 using namespace std;
 
-Cours::Cours(){
+Cours::Cours()
+{
     coursName = "Intermidiate English";
     coursNum = 001;
     teachers = new Personnel();
     dep = teachers->getDep();
     NEtude = "3IIR";
+    students = vector<Etudiant *>();
 }
 
-Cours::Cours(string CName, int Cnum, Personnel* t, string levelEtude){
-    // on va appler la fonction givingTeacher(IDEmploye)
-    coursName = CName;
-    coursNum = Cnum; 
-    NEtude = levelEtude;
+Cours::Cours(string CName, int Cnum, Personnel *t, string levelEtude)
+{
     if (givingTeacher(t) == true)
     {
-        teachers = t;
+        setCName(CName);
+        setCNum(Cnum);
+        setNiveau(levelEtude);
+        students = vector<Etudiant *>();
     }
-    
 }
 
 Cours::~Cours()
@@ -32,7 +33,7 @@ Cours::~Cours()
     cout << "l'objet a ete detruit avec succes!";
 }
 
-bool Cours::givingTeacher(Personnel* p)
+bool Cours::givingTeacher(Personnel *p)
 {
     bool exists;
     vector<Personnel> teachers;
@@ -40,6 +41,7 @@ bool Cours::givingTeacher(Personnel* p)
     {
         if (p->getNum() == teachers[i].getNum() && tolower(p->getType()) == 'e')
         {
+            setTeacher(&teachers[i]);
             dep = teachers[i].getDep();
             return true;
         }
@@ -47,9 +49,10 @@ bool Cours::givingTeacher(Personnel* p)
     return false;
 }
 
-void Cours::afficher(){
+void Cours::afficher()
+{
     cout << "Nom du cours: " << coursName << endl
-    << "Numero du cours: " << coursNum << endl
-    << "Departement: " << dep << endl
-    << "Niveau d'etude: " << NEtude << endl;
+         << "Numero du cours: " << coursNum << endl
+         << "Departement: " << dep << endl
+         << "Niveau d'etude: " << NEtude << endl;
 }

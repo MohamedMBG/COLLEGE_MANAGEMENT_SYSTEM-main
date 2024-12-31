@@ -6,13 +6,21 @@
 
 using namespace std;
 
-Notes::Notes(/* args */){
+Notes::Notes(){
 }
 
 Notes::~Notes(){
 }
 
 void Notes::addGrade(Etudiant* student, Cours* course, double grade) {
+    //cette methode va nous aider a ajouter des notes aux cours des etudiants qui existent deja
+    for (int i = 0; i < students.size(); ++i) {
+        if (students[i] == student && courses[i] == course) {
+            grades[i] = grade;
+            return;
+        }
+    }
+    // si on a pas trouve l'etudiant et le cours on va les ajouter et ajouter la note
     students.push_back(student);
     courses.push_back(course);
     grades.push_back(grade);
@@ -28,5 +36,3 @@ double Notes::getGrade(Etudiant* student, Cours* course) {
     cout << "L'etudiant n'a pas de note pour ce cours!" << endl;
     return -1;
 }
-
-/* --------------- still i didn't do the displaying part -------------------------- */

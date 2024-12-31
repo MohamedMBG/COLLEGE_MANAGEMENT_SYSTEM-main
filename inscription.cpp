@@ -5,58 +5,92 @@
 using namespace std;
 
 Inscription::Inscription() {}
-
-Inscription::~Inscription() {
+Inscription::~Inscription()
+{
     cout << "Objet d'inscription detruit avec succes !" << endl;
 }
 
-void Inscription::inscrireEtudiant(Etudiant* e, Cours* c) {
-    bool coursTrouve = false;
-    for (size_t i = 0; i < courses.size(); ++i) {
-        if (courses[i] == c) {
-            studentsInCourses[i].push_back(e);
-            coursTrouve = true;
+void Inscription::inscrireEtudiant(int codeE, int codeC)
+{
+    Etudiant *student = nullptr;
+    Cours *course = nullptr;
+
+    for (auto &etudiant : students)
+    {
+        if (etudiant->getMatricule() == codeE)
+        {
+            student = etudiant;
             break;
         }
     }
-    if (!coursTrouve) {
-        courses.push_back(c);
-        studentsInCourses.push_back(vector<Etudiant*>{e});
-        validated.push_back(false); 
-    }
-    cout << "Etudiant inscrit au cours. En attente de validation." << endl;
-}
 
-void Inscription::validerInscription(Cours* c) {
-    for (size_t i = 0; i < courses.size(); ++i) {
-        if (courses[i] == c) {
-            validated[i] = true;
-            cout << "Inscription validee pour le cours : " << c->getCoursName() << endl;
-            return;
+    for (auto &cours : courses)
+    {
+        if (cours->getCoursNum() == codeC)
+        {
+            course = cours;
+            break;
         }
     }
-    cout << "Cours non trouve." << endl;
+
+    if (student && course)
+    {
+        course->getStudents().push_back(student);
+        cout << "Etudiant inscrit au cours avec succes!" << endl;
+    }
+    else
+    {
+        cout << "Etudiant ou cours non trouve!" << endl;
+    }
 }
 
-void Inscription::declinerInscription(Cours* c) {
-    for (size_t i = 0; i < courses.size(); ++i) {
-        if (courses[i] == c) {
-            validated[i] = false;
-            cout << "Inscription declinee pour le cours : " << c->getCoursName() << endl;
-            return;
+void Inscription::declinerInscription(int codeE, int codeC)
+{
+    Cours *course = nullptr;
+    Etudiant *student = nullptr;
+
+    for (auto &cours : courses)
+    {
+        if (cours->getCoursNum() == codeC)
+        {
+            course = cours;
+            break;
         }
     }
-    cout << "Cours non trouve." << endl;
+
+    for (auto &etudiant : students)
+    {
+        if (etudiant->getMatricule() == codeE)
+        {
+            student = etudiant;
+            break;
+        }
+    }
+
+    if (student && course)
+    {
+        for (int i = 0; i < course->getStudents().size(); i++)
+        {
+            if (course->getStudents()[i]->getMatricule() == codeE)
+            {
+                course->getStudents().erase(course->getStudents().begin() + i);
+                cout << "Etudiant desinscrit du cours avec succes!" << endl;
+                return;
+            }
+        }
+    }
 }
 
-void Inscription::afficherInscriptions() const {
-    for (size_t i = 0; i < courses.size(); ++i) {
-        cout << "Cours : " << endl;
-        courses[i]->afficher();
-        cout << "Statut de validation : " << (validated[i] ? "Valide" : "Non valide") << endl;
-        cout << "etudiants : " << endl;
-        for (size_t j = 0; j < studentsInCourses[i].size(); ++j) {
-            studentsInCourses[i][j]->afficher();
+void Inscription::afficherInscriptions()
+{
+    cout << "Liste des inscriptions: " << endl;
+    for (auto &cours : courses)
+    {
+        cout << "Cours: " << cours->getCoursName() << endl;
+        cout << "Etudiants: " << endl;
+        for (auto &etudiant : cours->getStudents())
+        {
+            cout << etudiant->getNom() << " " << etudiant->getPrenom() << endl;
         }
     }
 }
